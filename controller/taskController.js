@@ -1,6 +1,5 @@
 
 import Task from "../Schemas/taskSchema.js"
-import mongoose from "mongoose";
 
 export const getAllTasks = async(req,res)=>{
 try{
@@ -106,3 +105,29 @@ export const updateTask=async(req,res)=>{
  
  
  }
+
+
+
+ 
+export const analytics=async(req,res)=>{
+    const currentDate = new Date();
+    const sevenDaysAgo = new Date(currentDate);
+    sevenDaysAgo.setDate(currentDate.getDate() - 20);
+    
+    console.log(sevenDaysAgo);
+ try{
+     const taskById = await Task.find({ dueDate: { $gte: sevenDaysAgo } });
+     if(taskById){
+         res.status(200).json(taskById)
+     }else{
+         res.status(400).json('task not found')
+ 
+     }
+ }catch(error){
+     console.error(error)
+     res.send(error)
+ }
+ 
+ 
+ }
+ 

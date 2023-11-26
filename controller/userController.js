@@ -27,7 +27,6 @@ export const getUser = async (req, res,next) => {
   console.log(data)
 
   try {
-    // Check if the user exists in the database and the password matches
     const user = await User.findOne( {username:data.assignedUser});
 
     if (!user) {
@@ -47,7 +46,6 @@ export const authenticateUser = async (req, res,next) => {
   const data = req.body;
 
   try {
-    // Check if the user exists in the database and the password matches
     const user = await User.findOne( {username:data.username,password:data.password});
 
     if (!user) {
